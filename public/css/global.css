@@ -1,0 +1,147 @@
+body
+{
+	font-family:verdana;
+	color:#555555;
+}
+
+#header
+{
+	overflow:hidden;
+	background-color:#f0f0f0;
+}
+
+#title
+{
+	font-size:30px;
+	margin:20px;
+}
+
+	#title strike
+	{
+		color:#b0b0b0;
+	}
+
+#navigation
+{
+	background-color:#e0e0e0;
+	padding:10px 20px;
+	border-top:#d0d0d0 dashed 3px;
+	border-bottom:#d0d0d0 dashed 3px;
+}
+
+	#navigation ul
+	{
+		list-style:none;
+	}
+
+	#navigation ul li
+	{
+		float:left;
+		margin-left:20px;
+	}
+
+	#navigation ul li:first-child
+	{
+		margin-left:0px;
+	}
+
+	#navigation ul li a:link,
+	#navigation ul li a:active,
+	#navigation ul li a:visited,
+	#navigation ul li a:hover
+	{
+		text-decoration:none;
+		color:#555555;
+	}
+
+	#navigation ul li a:hover
+	{
+		color:#000000;
+	}
+
+#messages
+{
+}
+
+	#messages :first-child
+	{
+		margin-top:20px;
+	}
+
+		.message
+		{
+			padding:10px 20px;
+			border-top:#d0d0d0 dashed 3px;
+			border-bottom:#d0d0d0 dashed 3px;
+		}
+
+			.message.success
+			{
+				background-color:#C1FF69;
+				border-color:#7DD400;
+			}
+
+			.message.error
+			{
+				background-color:#FF6970;
+				border-color:#DE000B;
+			}
+
+			.message.alert
+			{
+				background-color:#FFF669;
+				border-color:#E2CF00;
+			}
+
+.page
+{
+	margin:20px;
+}
+
+	.page p,
+	.page ul
+	{
+		margin-bottom:20px;
+	}
+
+	.page .boxout
+	{
+		background-color:#f8f8f8;
+		padding:20px;
+		border-right:3px #e8e8e8 dashed;
+	}
+
+	.page li
+	{
+		margin-left:20px;
+	}
+
+.form
+{
+	background-color:#f8f8f8;
+	padding:20px;
+	border-right:3px #e8e8e8 dashed;
+}
+
+	.form label
+	{
+		display:block;
+		margin-bottom:10px;
+	}
+
+		.form label span
+		{
+			display:block;
+			margin-bottom:4px;
+		}
+
+	.form ul
+	{
+		display:none;
+	}
+
+	.form input[type=text],
+	.form input[type=password]
+	{
+		width:140px;
+	}

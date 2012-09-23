@@ -1,0 +1,23 @@
+<?php
+$title = 'Register';
+$this->headTitle($title);
+?>
+<div id="register" class="page">
+	<div class="form">
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('library', array('action'=>'register')));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+//echo $this->formHidden($form->get('id'));
+echo $this->formRow($form->get('forename'));
+echo $this->formRow($form->get('surname'));
+echo $this->formRow($form->get('username'));
+echo $this->formRow($form->get('password'));
+echo $this->formRow($form->get('confirm'));
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
+?>
+	</div>
+</div>

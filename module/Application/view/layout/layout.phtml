@@ -1,0 +1,72 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+<?php
+echo $this->headTitle('ZF2 - Library')->setSeparator(' - ')->setAutoEscape(false);
+echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0');
+echo $this->headLink(array(
+		'rel'=>'shortcut icon',
+		'type'=>'image/vnd.microsoft.icon',
+		'href'=>$this->basePath().'/images/favicon.ico',
+	))
+	->appendStylesheet($this->basePath().'/css/html5reset-1.6.1.css')
+	->appendStylesheet($this->basePath().'/css/common.css')
+	->appendStylesheet($this->basePath().'/css/global.css');
+
+//need to get jquery in here!
+
+echo $this->headScript()
+	->appendFile($this->basePath().'/js/html5.js', 'text/javascript', array('conditional'=>'lt IE 9'))
+	->appendFile($this->basePath().'/js/global.js');
+?>
+</head>
+<div id="header">
+	<div id="title">
+		Welcome To The <strike>Jungle</strike> Library<?php if($this->user) echo ', '.$this->escape($this->user->getField('forename')).' ('.$this->escape($this->user->getReferenced('Usertypes')->getField('name')).')!'; ?>
+	</div>
+	<div id="navigation" class="group">
+		<ul>
+			<li>
+				<a href="/">Home</a>
+			</li>
+<?php if($this->user): ?>
+			<li>
+				<a href="<?php echo $this->url('library', array('action'=>'library')); ?>">Library</a>
+			</li>
+			<li>
+				<a href="<?php echo $this->url('library', array('action'=>'logout')); ?>">Logout</a>
+			</li>
+<?php else: ?>
+			<li>
+				<a href="<?php echo $this->url('library', array('action'=>'register')); ?>">Register</a>
+			</li>
+			<li>
+				<a href="<?php echo $this->url('library', array('action'=>'login')); ?>">Login</a>
+			</li>
+<?php endif ?>
+		</ul>
+	</div>
+</div>
+<div id="messages">
+	<?php if($this->success): ?>
+	<div class="message success">
+		<?php echo $this->success; ?>
+	</div>
+	<?php endif ?>
+	<?php if($this->alert): ?>
+	<div class="message alert">
+		<?php echo $this->alert; ?>
+	</div>
+	<?php endif ?>
+	<?php if($this->error): ?>
+	<div class="message error">
+		<?php echo $this->error; ?>
+	</div>
+	<?php endif ?>
+</div>
+<?php echo $this->content; ?>
+<?php echo $this->inlineScript(); ?>
+</body>
+</html>

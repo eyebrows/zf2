@@ -1,0 +1,27 @@
+<script type="text/javascript">
+/*
+$(function() {
+	if($.bbq.getState('registered')=='justnow') {
+		$.bbq.removeState('registered');
+		$('#messages').append($('<div>').addClass('message success hidden').text('Welcome to the Library! Please use your email address and password to login below'));
+		$('#messages .message').slideDown('fast');
+		hideMessages();
+	}
+});
+*/
+</script>
+<div id="login" class="page">
+	<div class="form">
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('library', array('action'=>'login')));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formRow($form->get('username'));
+echo $this->formRow($form->get('password'));
+echo $this->formSubmit($form->get('submit'));
+echo $this->form()->closeTag();
+?>
+	</div>
+</div>

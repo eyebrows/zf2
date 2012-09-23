@@ -1,0 +1,51 @@
+<?php
+$title = 'Home';
+$this->headTitle($title);
+?>
+<script type="text/javascript">
+/*
+$(function() {
+	if($.bbq.getState('loggedin')=='justnow') {
+		$.bbq.removeState('loggedin');
+		$('#messages').append($('<div>').addClass('message success hidden').text('Welcome to the Library\'s login area!'));
+		$('#messages .message').slideDown('fast');
+		hideMessages();
+	}
+});
+*/
+</script>
+<div id="books" class="page">
+	<p>
+		The following is a sample of the books presently available in our library.
+	</p>
+	<ul class="boxout">
+		<?php foreach($books as $book): ?>
+		<li><?php echo $this->escapeHtml($book->title); ?> - <?php echo $this->escapeHtml($book->author->name); ?></li>
+		<?php endforeach ?>
+	</ul>
+	<p>
+		Oh, you like space operas? Here are all books by <b><?php echo $this->escapeHtml($highlighted_author->name); ?></b> (featuring manual traversal of Book->BookCategory->Category in the view script):
+	</p>
+	<ul class="boxout">
+		<?php foreach($highlighted_author->books as $book): ?>
+		<li><?php echo $this->escapeHtml($book->title); ?>
+			<ul>
+				<?php foreach($book->bookcategories as $bookcategory): ?>
+				<li><?php echo $this->escapeHtml($bookcategory->category->name) ?>
+				<?php endforeach ?>
+			</ul>
+		</li>
+		<?php endforeach ?>
+	</ul>
+	<p>
+		Oh, you like scientific books? Here are all our <b><?php echo $this->escapeHtml($highlighted_category->name); ?></b> books (featuring Model-based shortcut to skip BookCategory):
+	</p>
+	<ul class="boxout">
+		<?php foreach($highlighted_category->books as $book): ?>
+		<li><?php echo $this->escapeHtml($book->title); ?></li>
+		<?php endforeach ?>
+	</ul>
+	<p>
+		Please use the links above if you would like to register with us.
+	</p>
+</div>
