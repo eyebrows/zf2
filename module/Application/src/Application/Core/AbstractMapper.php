@@ -46,6 +46,7 @@ abstract class AbstractMapper {
 		$this->{$property.'Mapper'} = $mapper;
 	}
 
+/*
 //so far only used by chained placeholders to access mappers inside mappers
 	public function getMapper($name) {
 		$mapper = $name.'Mapper';
@@ -53,6 +54,7 @@ abstract class AbstractMapper {
 			throw new \Exception('Invalid mapper access request ('.$mapper.').');
 		return $this->$mapper;
 	}
+*/
 
 //every implemented Mapper must have a createEntity function which must take an array of data, which is a record from a DB
 	abstract protected function createEntity(array $row);

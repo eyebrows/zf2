@@ -27,14 +27,6 @@ class Book extends Core\AbstractMapper {
 	protected function createEntity(array $row) {
 		if($this->authorMapper)
 			$author = new Core\EntityPlaceholder($this->authorMapper, array('id'=>$row['author_id']));
-/*
-//this is the mapper-based way of doing shortcuts so the model never even sees a BookCategory object, they never exist as far as its concerned
-//not used as it's a bit finnecky and some link table data might be needed anyway. Easier to comprehend model-based shortcuts over this n'mare, too
-		if($this->bookcategoriesMapper) {
-			$categories = new Core\EntityPlaceholder($this->bookcategoriesMapper->getMapper('category'), array('id', 'Category', 'id'));
-			$bookcategories = new Core\EntityPlaceholder($this->bookcategoriesMapper, array('book_id'=>$row['id']), $categories);
-		}
-*/
 		if($this->bookcategoriesMapper)
 			$bookcategories = new Core\EntityPlaceholder($this->bookcategoriesMapper, array('book_id'=>$row['id']));
 		return new Model\Book($row['id'], $row['title'], isset($author)?$author:null, isset($bookcategories)?$bookcategories:null);

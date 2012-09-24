@@ -17,6 +17,7 @@ Zend\Mvc\Application::init(include 'config/application.config.php')->run();
     - mappers: insert?
 	- mappers: update?
 	+ mappers: delete?
+ - create a proper readme documentation to my approach
  - when saving any objects make sure to pull in id fields of referenced objects that might've changed
  - also come up with nice way of doing JOIN-based stuff so only one query is needed for list pages
  - see if can follow this link and create means of getting $dbAdapter injected into all AbstractMappers by default, not needing passing in each instance
@@ -24,19 +25,19 @@ Zend\Mvc\Application::init(include 'config/application.config.php')->run();
  - check ZF1 for list of outstanding things
     - such as getting jquery back in
  + add back in some categories to the DB if they ain't already
-    + come up with sensible structure for getting such many-to-many things in the Model
+    + come up with sensible structure for getting such many-to-many things in the Model, using Mappers to handle the actual logic
 	   + such as with... categories!
-	x and then demonstrate both ways in the code
+	x and then demonstrate both ways (Mapper-based logic and Model-based) in the code
 	   x not currently possible as it's the Mapper that handles the special shit
 	+ perhaps a better pattern would be to have the Model fully intact but provide a shortcut method in Category which calls the others?
-	   + yes, have opted for model-based shortcut as it's less insane, and some mTm linking tables will have data in them too (e.g. date created)
+	   + yes, have opted for model-based shortcut as it's less insane, and some m-t-m linking tables will have data in them too (e.g. date created)
  + get authors displaying in the main listing using the new thing I thought up this morning
     + plan is that the Model can have getDependent and getReferenced methods
 	+ which the mapper should inject with "placeholders" which should now just be things containing a mapper object and what fields to select on
 	+ abstractModel containing a getReferenced method which ModelBook would call via its own getAuthor method somehow
  - figure out how exception catching works so ones thrown from my MVC section by me are caught and not causing an exit;
- - make user registration work
- - make login/logout work
+ - make user registration work (again)
+ - make login/logout work (again)
  + stick a few files in more sensible places
     + AbstractEntity
 	+ AbstractMapper
