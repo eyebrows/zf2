@@ -36,6 +36,8 @@ abstract class AbstractMapper {
 //can always be overridden if properties of a given Model don't match field names in the DB
 	public function saveEntity($entity) {
 		$data = get_object_vars($entity);
+		if(method_exists($entity, 'getReferencedEntityIds'))
+			$data = array_merge($data, $entity->getReferencedEntityIds());
 		if($entity->id) {
 			unset($data['id']);
 			$this->adapter->update($this->entityTable, $data, 'id='.$entity->id);

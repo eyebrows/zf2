@@ -28,7 +28,10 @@ abstract class AbstractEntity {
 			return $this->$field;
 	}
 
-	public function getReferenced($property) {
+//$dont_translate needed so the Mapper::save() method can tell if it needs to actually grab the id of the referenced object or not
+	public function getReferenced($property, $dont_translate=false) {
+		if($dont_translate)
+			return 'Application\Core\EntityPlaceholder'==get_class($this->$property)?false:$this->$property;
 		if(is_object($this->$property) && 'Application\Core\EntityPlaceholder'==get_class($this->$property))
 			$this->$property = $this->$property->fetchEntity();
 		else if(is_null($this->$property))

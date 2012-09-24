@@ -17,8 +17,8 @@ Zend\Mvc\Application::init(include 'config/application.config.php')->run();
     + mappers: insert?
 	+ mappers: update?
 	+ mappers: delete?
- - when saving any objects make sure to pull in id fields of referenced objects that might've changed
-    - this might introduce some complications
+ + when saving any objects make sure to pull in id fields of referenced objects that might've changed
+    - see if we can abstract it a bit more tidily, bearing in mind tables don't always have just one reference and may use different names
  - create a proper readme documentation to my approach
  - also come up with nice way of doing JOIN-based stuff so only one query is needed for list pages
  - see if can follow this link and create means of getting $dbAdapter injected into all AbstractMappers by default, not needing passing in each instance
