@@ -12,13 +12,14 @@ include 'init_autoloader.php';
 Zend\Mvc\Application::init(include 'config/application.config.php')->run();
 
 /*
- - see if anything else can be abstracted down into AbstractMapper/Entity
+ + see if anything else can be abstracted down into AbstractMapper/Entity
     + models: fine
-    - mappers: insert?
-	- mappers: update?
+    + mappers: insert?
+	+ mappers: update?
 	+ mappers: delete?
- - create a proper readme documentation to my approach
  - when saving any objects make sure to pull in id fields of referenced objects that might've changed
+    - this might introduce some complications
+ - create a proper readme documentation to my approach
  - also come up with nice way of doing JOIN-based stuff so only one query is needed for list pages
  - see if can follow this link and create means of getting $dbAdapter injected into all AbstractMappers by default, not needing passing in each instance
     - http://stackoverflow.com/questions/10254574/how-to-get-zend-db-adapter-instance-from-within-a-model-zf2?lq=1

@@ -17,14 +17,6 @@ class BookCategory extends Core\AbstractMapper {
 		parent::__construct($adapter);
 	}
 
-	public function insert(Model\BookCategory $book_category) {
-		$book_category->id = $this->adapter->insert($this->entityTable, array(
-			'book_id'=>$book_category->book_id,
-			'category_id'=>$book_category->category_id,
-		));
-		return $book_category->id;
-	}
-
 	protected function createEntity(array $row) {
 		if($this->bookMapper)
 			$books = new Core\EntityPlaceholder($this->bookMapper, array('id'=>$row['book_id']));

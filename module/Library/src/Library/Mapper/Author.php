@@ -15,13 +15,6 @@ class Author extends Core\AbstractMapper {
 		parent::__construct($adapter);
 	}
 
-	public function insert(Model\Author $author) {
-		$author->id = $this->adapter->insert($this->entityTable, array(
-			'name'=>$author->name,
-		));
-		return $author->id;
-	}
-
 	protected function createEntity(array $row) {
 		if($this->booksMapper)
 			$books = new Core\EntityPlaceholder($this->booksMapper, array('author_id'=>$row['id']));

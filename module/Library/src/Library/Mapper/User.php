@@ -15,14 +15,6 @@ class User extends Core\AbstractMapper {
 		parent::__construct($adapter);
 	}
 
-	public function insert(Model\User $user) {
-		$user->id = $this->adapter->insert($this->entityTable, array(
-			'name'=>$user->name,
-			'username'=>$user->username,
-		));
-		return $user->id;
-	}
-
 	protected function createEntity(array $row) {
 		if($this->commentsMapper)
 			$comments = new Core\EntityPlaceholder($this->commentsMapper, array('user_id'=>$row['id']));

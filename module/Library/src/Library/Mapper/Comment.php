@@ -15,16 +15,6 @@ class Comment extends Core\AbstractMapper {
 		parent::__construct($adapter);
 	}
 
-//figure out the best way of doing this - pull IDs from Entities, or pass literal IDs in?
-	public function insert(Model\Comment $comment, $book_id, $user_id) {
-		$comment->id = $this->adapter->insert($this->entityTable, array(
-			'content'=>$comment->content,
-			'book_id'=>$book_id,
-			'user_id'=>$user_id,
-		));
-		return $comment->id;
-	}
-
 	protected function createEntity(array $row) {
 		if($this->userMapper)
 			$user = new Core\EntityPlaceholder($this->userMapper, array('id'=>$row['user_id']));
