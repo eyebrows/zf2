@@ -11,8 +11,7 @@ $form->prepare();
 
 echo $this->form()->openTag($form);
 //echo $this->formHidden($form->get('id'));
-echo $this->formRow($form->get('forename'));
-echo $this->formRow($form->get('surname'));
+echo $this->formRow($form->get('name'));
 echo $this->formRow($form->get('username'));
 echo $this->formRow($form->get('password'));
 echo $this->formRow($form->get('confirm'));

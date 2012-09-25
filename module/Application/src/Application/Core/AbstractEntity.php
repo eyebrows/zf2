@@ -56,7 +56,13 @@ abstract class AbstractEntity {
 		return $this;
 	}
 
-	public function toArray() {
+//below two methods used by the InputFilter thing for validating input from forms
+	public function getArrayCopy() {
 		return get_object_vars($this);
+	}
+
+	public function exchangeArray($data) {
+		foreach($data as $key=>$value)
+			$this->$key = $value;
 	}
 }

@@ -13,14 +13,18 @@ Zend\Mvc\Application::init(include 'config/application.config.php')->run();
 
 /*
  - next
-    - make user registration work (again)
+    - make user registration work
+	   + needs to check if email address already exists
+	      + which, as it needs to check the DB, means the validator needs to go in the Mapper, not the Model...
+	   + need to encrypt password
+	   - and get the "thanks i could help, bro!" message back in there
     - make login/logout work (again)
        - from zf1: where can "auth state loader" go so that state doesn't have to be loaded in every single Action of every Controller?
 	     needed because atm if you go to a Controller/Action without it, you get the un-authed nav appearing
 	      - can get it per-controller by placing in the Controller::init() method... can we get it application-wide?
 	         - now look to move out the code in to the Plugin_Authenticate thing
-       - create a proper readme documentation to my approach
-       - also come up with nice way of doing JOIN-based stuff so only one query is needed for list pages
+    - create a proper readme documentation to my approach
+    - also come up with nice way of doing JOIN-based stuff so only one query is needed for list pages
     - get jquery back in to do my nice Message stuff
  - later
     - use ACLs (probably) to do the user types thing with different pages to admin/authed/non-authed visitors
@@ -59,4 +63,5 @@ Zend\Mvc\Application::init(include 'config/application.config.php')->run();
     - http://samsonasik.wordpress.com/2012/08/28/set-default-db-adapter-in-zend-framework-2/
 	- http://phpmaster.com/building-a-domain-model/
 	- http://phpmaster.com/integrating-the-data-mappers/#comment-27011
+	- http://zend-framework-community.634137.n4.nabble.com/Services-Instances-Dependencies-in-ZF2-td4584632.html
 */

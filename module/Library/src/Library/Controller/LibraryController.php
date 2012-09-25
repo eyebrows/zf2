@@ -33,33 +33,36 @@ class LibraryController extends MasterController {
 		$categoryMapper = new Mapper\Category($this->dbAdapter, $bookcategoryMapper);
 		$highlighted_category = $categoryMapper->findById(2);
 
-		return new ViewModel(array(
+		return array(
 			'books'=>$books,
 			'highlighted_author'=>$highlighted_author,
 			'highlighted_category'=>$highlighted_category,
-		));
+		);
 	}
 
 	public function registerAction() {
 		$form = new Form\Register();
-		$form->get('submit')->setValue('Register');
+//		$form->get('submit')->setValue('Register');
 		$request = $this->getRequest();
 		if($request->isPost()) {
-			$user = new Model\User();
-			$form->setInputFilter($user->getInputFilter());
+			$userMapper = new Mapper\User($this->dbAdapter);
+			$form->setInputFilter($userMapper->getInputFilter());
 			$form->setData($request->getPost());
 			if($form->isValid()) {
+				$user = new Model\User();
 				$user->exchangeArray($form->getData());
-				$this->getUserTable()->saveUser($user);
-				return $this->redirect()->toRoute('library');
+				$userMapper->saveEntity($user);
+				return $this->redirect()->toRoute('library', array('action'=>'login'));
 			}
 		}
-		return array('form'=>$form);
+		return array(
+			'form'=>$form,
+		);
 	}
 
 	public function loginAction() {
 		$form = new Form\Login();
-		$form->get('submit')->setValue('Login');
+//		$form->get('submit')->setValue('Login');
 		$request = $this->getRequest();
 		if($request->isPost()) {
 			$user = new Model\User();
@@ -73,6 +76,8 @@ class LibraryController extends MasterController {
 */
 			}
 		}
-		return array('form'=>$form);
+		return array(
+			'form'=>$form,
+		);
 	}
 }

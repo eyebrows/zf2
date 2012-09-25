@@ -1,4 +1,5 @@
 <?php
+//this is no longer used as Zend has an in-built one. Always wondered why we weren't using it.
 namespace Application\Core;
 
 class PdoAdapter {
@@ -7,6 +8,8 @@ class PdoAdapter {
 	protected $connection;
 	protected $statement;
 	protected $fetchMode = \PDO::FETCH_ASSOC;  
+
+	protected $zendAdapter;
 
 	public function __construct($dsn, $username = null, $password = null, array $driverOptions = array()) {
 		$this->config = compact('dsn', 'username', 'password', 'driverOptions');
@@ -144,5 +147,12 @@ class PdoAdapter {
 	public function delete($table, $where = '') {
 		$sql = 'DELETE FROM '.$table.($where?' WHERE '.$where:' ');
 		return $this->prepare($sql)->execute()->countAffectedRows();
+	}
+
+//needed because some things require something which is, well, one of these
+	public function getZendAdapter() {
+		if(!$this->zendAdapter)
+			$this->zendAdapter = new \Zend\Db\Adapter\Adapter(array_merge($this->config, array('driver'=>'pdo')));
+		return $this->zendAdapter;
 	}
 }

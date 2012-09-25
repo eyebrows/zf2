@@ -2,11 +2,16 @@
 namespace Application\Core;
 
 use Application\Core\PdoAdapter;
+use Zend\InputFilter\Factory as InputFactory;
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
 
-abstract class AbstractMapper {
+abstract class AbstractMapper implements InputFilterAwareInterface {
 
 	protected $adapter;
 	protected $entityTable;
+	protected $inputFilter;
 
 	public function __construct(PdoAdapter $adapter) {
 		$this->adapter = $adapter;
@@ -34,8 +39,11 @@ abstract class AbstractMapper {
 	}
 
 //can always be overridden if properties of a given Model don't match field names in the DB
-	public function saveEntity($entity) {
-		$data = get_object_vars($entity);
+	public function saveEntity($entity, $data=null) {
+//we use get_object_vars because we're outside the object so only get the public vars
+//it can also be passed in by an extended saveEntity in a child class
+		if($data===null)
+			$data = get_object_vars($entity);
 		if(method_exists($entity, 'getReferencedEntityIds'))
 			$data = array_merge($data, $entity->getReferencedEntityIds());
 		if($entity->id) {
@@ -62,4 +70,14 @@ abstract class AbstractMapper {
 
 //every implemented Mapper must have a createEntity function which must take an array of data, which is a record from a DB
 	abstract protected function createEntity(array $row);
+
+	public function setInputFilter(InputFilterInterface $inputFilter) {
+		throw new \Exception('Not used');
+	}
+
+	public function getInputFilter() {
+		if(!$this->inputFilter)
+			$this->createInputFilter();
+		return $this->inputFilter;
+	}
 }

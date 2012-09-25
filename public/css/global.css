@@ -135,10 +135,12 @@ body
 			margin-bottom:4px;
 		}
 
+/*
 	.form ul
 	{
 		display:none;
 	}
+*/
 
 	.form input[type=text],
 	.form input[type=password]

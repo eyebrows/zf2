@@ -26,21 +26,12 @@ class Register extends Form {
 			),
 		));
 		$this->add(array(
-			'name'=>'forename',
+			'name'=>'name',
 			'attributes'=>array(
 				'type'=>'text',
 			),
 			'options'=>array(
-				'label'=>'Forename',
-			),
-		));
-		$this->add(array(
-			'name'=>'surname',
-			'attributes'=>array(
-				'type'=>'text',
-			),
-			'options'=>array(
-				'label'=>'Surname',
+				'label'=>'Name',
 			),
 		));
 		$this->add(array(

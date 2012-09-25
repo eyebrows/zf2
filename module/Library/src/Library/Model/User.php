@@ -5,32 +5,31 @@ use Application\Core\AbstractEntity;
 
 class User extends AbstractEntity {
 
+	public $date_registered;
 	public $name;
 	public $username;
+	public $password;
+	public $max_concurrent_rentals;
+	public $max_rental_days;
 
 	protected $comments;
 
-	public function __construct($id, $name, $username, $comments=null) {
+	public function __construct($id=null, $date_registered=null, $name=null, $username=null, $password=null, $max_concurrent_rentals=null, $max_rental_days=null, $comments=null) {
 		$this->id = $id;
-		$this->setName($name);
-		$this->setUsername($username);
+		$this->date_registered = $date_registered?$date_registered:date('Y-m-d G:i:s');
+		$this->name = $name;
+		$this->username = $username;
+		$this->password = $password;
+		$this->max_concurrent_rentals = $max_concurrent_rentals?$max_concurrent_rentals:0;
+		$this->max_rental_days = $max_rental_days?$max_rental_days:0;
 	}
 
 	public function getComments() {
 		return parent::getDependent('comments');
 	}
 
-	public function setName($name) {
-		if(strlen($name)<2 || strlen($name)>30)
-			throw new \InvalidArgumentException('The user name is invalid.');
-		$this->name = htmlspecialchars(trim($name), ENT_QUOTES);
-		return $this;
-	}
-
-	public function setUsername($email) {
-		if(!filter_var($email, FILTER_VALIDATE_EMAIL))
-			throw new \InvalidArgumentException('The User\'s username is invalid.');
-		$this->email = $email;
-		return $this;
+	public function exchangeArray($data) {
+		unset($data['confirm']);
+		parent::exchangeArray($data);
 	}
 }
