@@ -1,5 +1,4 @@
 <?php
-//this is no longer used as Zend has an in-built one. Always wondered why we weren't using it.
 namespace Application\Core;
 
 class PdoAdapter {

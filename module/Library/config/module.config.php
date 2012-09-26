@@ -8,6 +8,7 @@ return array(
 				return $service->createService($serviceManager);
 			},
 		),
+//this was from before I was using my CommonServiceFactory to inject the dbadapter
 //		'invokables'=>array(
 //			'Library\Controller\Library'=>'Library\Controller\LibraryController',
 //		),

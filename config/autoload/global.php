@@ -25,6 +25,10 @@ return array(
 				$config = $serviceManager->get('configuration');
 				return new \Application\Core\PdoAdapter($config['db']['dsn'], $config['db']['username'], $config['db']['password'], $config['db']['driver_options']);
 			},
+			'Zend\Db\Adapter\Adapter'=>function($serviceManager) {
+				$dbAdapter = $serviceLocator->get('Application\Core\PdoAdapter');
+				return $dbAdapter->getZendAdapter();
+			},
 		),
 	),
 );

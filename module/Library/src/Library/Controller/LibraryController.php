@@ -41,18 +41,17 @@ class LibraryController extends MasterController {
 	}
 
 	public function registerAction() {
-		$form = new Form\Register();
+		$userMapper = new Mapper\User($this->dbAdapter);
+		$form = new Form\Register($userMapper);
 //		$form->get('submit')->setValue('Register');
 		$request = $this->getRequest();
 		if($request->isPost()) {
-			$userMapper = new Mapper\User($this->dbAdapter);
-			$form->setInputFilter($userMapper->getInputFilter());
 			$form->setData($request->getPost());
 			if($form->isValid()) {
 				$user = new Model\User();
 				$user->exchangeArray($form->getData());
 				$userMapper->saveEntity($user);
-				return $this->redirect()->toRoute('library', array('action'=>'login'));
+				return $this->redirect()->toUrl('/library/login#registered=justnow');
 			}
 		}
 		return array(
@@ -62,17 +61,15 @@ class LibraryController extends MasterController {
 
 	public function loginAction() {
 		$form = new Form\Login();
-//		$form->get('submit')->setValue('Login');
 		$request = $this->getRequest();
 		if($request->isPost()) {
-			$user = new Model\User();
-			$form->setInputFilter($user->getInputFilter());
+//			$form->setInputFilter($form->getInputFilter());
 			$form->setData($request->getPost());
 			if($form->isValid()) {
 /*
 				$user->exchangeArray($form->getData());
 				$this->getUserTable()->saveUser($user);
-				return $this->redirect()->toRoute('library');
+				return $this->redirect()->toUrl('/#loggedin=justnow');
 */
 			}
 		}

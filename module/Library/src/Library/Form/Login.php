@@ -2,6 +2,8 @@
 namespace Library\Form;
 
 use Zend\Form\Form;
+use Zend\InputFilter\Factory as InputFactory;
+use Zend\InputFilter\InputFilter;
 
 class Login extends Form {
 
@@ -34,5 +36,24 @@ class Login extends Form {
 				'id'=>'submitbutton',
 			),
 		));
+	}
+
+	public function getInputFilter() {
+		$this->inputFilter = new InputFilter();
+		$factory = new InputFactory();
+		$this->inputFilter->add($factory->createInput(array(
+			'name'=>'username',
+			'required'=>true,
+			'filters'=>array(
+				array('name'=>'StripTags'),
+				array('name'=>'StringTrim'),
+			),
+			'validators'=>array(
+				array(
+					'name'=>'EmailAddress',
+				),
+			),
+		)));
+		return $this->inputFilter;
 	}
 }
