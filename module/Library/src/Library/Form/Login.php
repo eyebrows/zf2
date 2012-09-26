@@ -39,21 +39,41 @@ class Login extends Form {
 	}
 
 	public function getInputFilter() {
-		$this->inputFilter = new InputFilter();
-		$factory = new InputFactory();
-		$this->inputFilter->add($factory->createInput(array(
-			'name'=>'username',
-			'required'=>true,
-			'filters'=>array(
-				array('name'=>'StripTags'),
-				array('name'=>'StringTrim'),
-			),
-			'validators'=>array(
-				array(
-					'name'=>'EmailAddress',
+		if(!isset($this->inputFilter)) {
+			$this->inputFilter = new InputFilter();
+			$factory = new InputFactory();
+			$this->inputFilter->add($factory->createInput(array(
+				'name'=>'username',
+				'required'=>true,
+				'filters'=>array(
+					array('name'=>'StripTags'),
+					array('name'=>'StringTrim'),
 				),
-			),
-		)));
+				'validators'=>array(
+					array(
+						'name'=>'EmailAddress',
+					),
+				),
+			)));
+			$this->inputFilter->add($factory->createInput(array(
+				'name'=>'password',
+				'required'=>true,
+				'filters'=>array(
+					array('name'=>'StripTags'),
+					array('name'=>'StringTrim'),
+				),
+				'validators'=>array(
+					array(
+						'name'=>'StringLength',
+						'options'=>array(
+							'encoding'=>'UTF-8',
+							'min'=>8,
+							'max'=>32,
+						),
+					),
+				),
+			)));
+		}
 		return $this->inputFilter;
 	}
 }

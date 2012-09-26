@@ -1,0 +1,24 @@
+<?php
+$title = 'Library';
+$this->headTitle($title);
+?>
+<script type="text/javascript">
+$(function() {
+	if($.bbq.getState('loggedin')=='justnow') {
+		$.bbq.removeState('loggedin');
+		$('#messages').append($('<div>').addClass('message success hidden').text('Welcome to the Library\'s login area!'));
+		$('#messages .message').slideDown('fast');
+		hideMessages();
+	}
+});
+</script>
+<div id="books" class="page">
+	<p>
+		And this is the entire library!
+	</p>
+	<ul class="boxout">
+		<?php foreach($books as $book): ?>
+		<li><?php echo $this->escapeHtml($book->title); ?> - <?php echo $this->escapeHtml($book->author->name); ?></li>
+		<?php endforeach ?>
+	</ul>
+</div>

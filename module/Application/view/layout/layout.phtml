@@ -13,10 +13,8 @@ echo $this->headLink(array(
 	))
 	->appendStylesheet($this->basePath().'/css/html5reset-1.6.1.css')
 	->appendStylesheet($this->basePath().'/css/common.css')
-	->appendStylesheet($this->basePath().'/css/global.css');
-
-//need to get jquery in here!
-
+	->appendStylesheet($this->basePath().'/css/global.css')
+	;
 echo $this->headScript()
 	->appendFile($this->basePath().'/js/html5.js', 'text/javascript', array('conditional'=>'lt IE 9'))
 	->appendFile($this->basePath().'/js/jquery/js/jquery-1.8.0.min.js')
@@ -26,16 +24,21 @@ echo $this->headScript()
 	;
 ?>
 </head>
+<?php
+$children = $this->viewModel()->getCurrent()->getChildren();
+$child = $children[0];
+$user = $child->user;
+?>
 <div id="header">
 	<div id="title">
-		Welcome To The <strike>Jungle</strike> Library<?php if($this->user) echo ', '.$this->escape($this->user->getField('forename')).' ('.$this->escape($this->user->getReferenced('Usertypes')->getField('name')).')!'; ?>
+		Welcome To The <strike>Jungle</strike> Library<?php if($user) echo ', '.$this->escapeHtml($user->name).' ('.$this->escapeHtml($user->usertype->name).')!'; ?>
 	</div>
 	<div id="navigation" class="group">
 		<ul>
 			<li>
 				<a href="/">Home</a>
 			</li>
-<?php if($this->user): ?>
+<?php if($user): ?>
 			<li>
 				<a href="<?php echo $this->url('library', array('action'=>'library')); ?>">Library</a>
 			</li>

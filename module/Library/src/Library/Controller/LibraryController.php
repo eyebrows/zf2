@@ -3,6 +3,8 @@ namespace Library\Controller;
 
 use Zend\View\Model\ViewModel;
 use Application\Core\MasterController;
+use Zend\Authentication\AuthenticationService as Auth;
+use Zend\Authentication\Adapter\DbTable as AuthAdapter;
 
 use Library\Mapper;
 use Library\Model;
@@ -11,6 +13,13 @@ use Library\Form;
 class LibraryController extends MasterController {
 
 	public function indexAction() {
+		$auth = new Auth();
+		$data = $auth->getStorage()->read();
+		if($data['user_id']) {
+			$usertypeMapper = new Mapper\Usertype($this->dbAdapter);
+			$userMapper = new Mapper\User($this->dbAdapter, $usertypeMapper);
+			$user = $userMapper->findById($data['user_id']);
+		}
 
 //here are three discrete examples of how to fetch data
 
@@ -37,6 +46,26 @@ class LibraryController extends MasterController {
 			'books'=>$books,
 			'highlighted_author'=>$highlighted_author,
 			'highlighted_category'=>$highlighted_category,
+			'user'=>isset($user)?$user:'',
+		);
+	}
+
+	public function libraryAction() {
+		$auth = new Auth();
+		$data = $auth->getStorage()->read();
+		if($data['user_id']) {
+			$usertypeMapper = new Mapper\Usertype($this->dbAdapter);
+			$userMapper = new Mapper\User($this->dbAdapter, $usertypeMapper);
+			$user = $userMapper->findById($data['user_id']);
+		}
+
+		$authorMapper = new Mapper\Author($this->dbAdapter);
+		$bookMapper = new Mapper\Book($this->dbAdapter, $authorMapper);
+		$books = $bookMapper->findAll();
+
+		return array(
+			'books'=>$books,
+			'user'=>isset($user)?$user:'',
 		);
 	}
 
@@ -63,18 +92,35 @@ class LibraryController extends MasterController {
 		$form = new Form\Login();
 		$request = $this->getRequest();
 		if($request->isPost()) {
-//			$form->setInputFilter($form->getInputFilter());
 			$form->setData($request->getPost());
 			if($form->isValid()) {
-/*
-				$user->exchangeArray($form->getData());
-				$this->getUserTable()->saveUser($user);
-				return $this->redirect()->toUrl('/#loggedin=justnow');
-*/
+				$data = $form->getData();
+				$auth = new Auth();
+				$authAdapter = new AuthAdapter($this->dbAdapter->getZendAdapter(), 'users', 'username', 'password');
+				$authAdapter
+					->setIdentity($data['username'])
+					->setCredential(md5($data['password']));
+				if($auth->authenticate($authAdapter)->isValid()) {
+					$id = $authAdapter->getResultRowObject()->id;
+					$auth->getStorage()->write(array(
+						'user_id'=>$id,
+					));
+					$this->redirect()->toUrl('/#loggedin=justnow');
+				}
+				else
+					$error = 'Invalid username or password';
 			}
 		}
 		return array(
 			'form'=>$form,
+			'error'=>isset($error)?$error:'',
 		);
+	}
+
+	public function logoutAction() {
+		$auth = new Auth();
+		if($auth->hasIdentity())
+			$auth->clearIdentity();
+		$this->redirect()->toUrl('/');
 	}
 }

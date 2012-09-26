@@ -13,7 +13,18 @@ $(function() {
 <div id="login" class="page">
 	<div class="form">
 <?php
-$form = $this->form;
+/*
+//because i think now $error can be accessed in the layout...
+?>
+	<?php if($this->error): ?>
+	<div class="message error">
+		<?php echo $this->error; ?>
+	</div>
+	<?php endif ?>
+<?php
+*/
+?>
+<?php
 $form->setAttribute('action', $this->url('library', array('action'=>'login')));
 $form->prepare();
 

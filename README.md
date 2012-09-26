@@ -15,17 +15,22 @@ and *much* tidier (although more boilerplate-y) layout of Model and Mappers over
 To Do
 =====
  - next
-    - make user registration work
-	   + needs to check if email address already exists
-	      + which, as it needs to check the DB, means the validator needs to go in the Mapper, not the Model...
-	   + need to encrypt password
-	   - and get the "thanks i could help, bro!" message back in there
-    - make login/logout work (again)
+    - it seems a bit dumb that mappers *must* be injected in to each other - if one object suddenly needs a new relationship to a new table, how the
+      hell are you going to find every single place its mapper's used, and go and add the new one in? seems insane...
+    - see if we can improve BookMapper's getReferencedEntityIds structure to be inherent somehow
+    + make user registration work
+       + needs to check if email address already exists
+	  + which, as it needs to check the DB, means the validator needs to go in the Mapper, not the Model...
+	  + need to encrypt password
+	  + and get the "thanks i could help, bro!" message back in there
+    + make login/logout work
+       + switching up the nav if logged in
+       + and logout working
        - from zf1: where can "auth state loader" go so that state doesn't have to be loaded in every single Action of every Controller?
-	     needed because atm if you go to a Controller/Action without it, you get the un-authed nav appearing
-          - maybe can do the same as with inserting the dbadapter in to the controller
+	 needed because atm if you go to a Controller/Action without it, you get the un-authed nav appearing
+          - maybe can do the same as with inserting the dbadapter in to the controller...
     - create a proper readme documentation to my approach
-    - consider moving all InputFilters on to Forms as they're already there, instead of Mappers... but...
+    + consider moving all InputFilters on to Forms as they're already there, instead of Mappers... but...
       then there's "model-related" information attached to Forms too. Is that such a bad thing, though? Were a field to be added to an Entity the form'd
       need to be changed anyway...
     - also come up with nice way of doing JOIN-based stuff so only one query is needed for list pages

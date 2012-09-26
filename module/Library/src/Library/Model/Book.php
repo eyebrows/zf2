@@ -38,6 +38,7 @@ class Book extends AbstractEntity {
 		return $categories;
 	}
 
+//what do we need this for? anything? we're already validating the form...
 	public function setTitle($title) {
 		if(!is_string($title) || strlen($title)<2 || strlen($title)>100)
 			throw new \InvalidArgumentException('The post title is invalid.');
